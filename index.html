@@ -325,58 +325,29 @@
         }
 
         /* Training Section */
-        .training {
-            background-color: var(--light-bg);
-        }
+.certificates-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
+        .certificate-card { background: var(--white); border-radius: 10px; box-shadow: var(--shadow); overflow: hidden; display: flex; flex-direction: column; transition: 0.3s; }
+        .certificate-card:hover { transform: translateY(-5px); }
+        .certificate-thumb { height: 200px; background: #f4f6f8; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .certificate-thumb img { max-width: 90%; max-height: 90%; object-fit: contain; }
+        .certificate-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+        .cert-actions { margin-top: auto; display: flex; gap: 0.5rem; }
+        .small-btn { flex: 1; padding: 10px; border-radius: 4px; border: none; cursor: pointer; font-weight: 600; text-align: center; text-decoration: none; }
+        .btn-view { background: #7f8c8d; color: white; }
+        .btn-verify { background: var(--secondary-color); color: white; }
 
-        .training-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
+        /* Modal / Pop-up styles for viewing full certificate images */
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; z-index: 9999; padding: 20px; }
+        .modal.open { display: flex; } /* Shows the modal when 'open' class is added via JS */
+        .modal-content { max-width: 1000px; width: 100%; background: #fff; border-radius: 8px; position: relative; padding: 10px; }
+        .modal-body img { width: 100%; height: auto; max-height: 85vh; display: block; border-radius: 5px; object-fit: contain; }
+        .close-modal { position: absolute; top: -50px; right: 0; color: white; font-size: 3rem; cursor: pointer; }
 
-        .training-card {
-            background-color: var(--white);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s ease;
-        }
+        /* Footer styling */
+        footer { background: var(--primary-color); color: white; text-align: center; padding: 2rem 0; margin-top: 40px; }
 
-        .training-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .training-image {
-            height: 200px;
-            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-        }
-
-        .training-image i {
-            font-size: 3rem;
-        }
-
-        .training-content {
-            padding: 2rem;
-        }
-
-        .training-content h3 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .training-content p {
-            margin-bottom: 0.5rem;
-        }
-
-        .training-content .year {
-            color: var(--secondary-color);
-            font-weight: bold;
-        }
+        /* Mobile responsiveness - hides nav and shrinks text on small screens */
+        @media (max-width: 768px) { .nav-links { display: none; } .hero h1 { font-size: 2.5rem; } }
 
         /* Contact Section */
         .contact {
@@ -553,7 +524,7 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#education">Education</a></li>
                 <li><a href="#skills">Skills</a></li>
-                <li><a href="#training">Training</a></li>
+                <li><a href="#training">Training & Certifications</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <div class="menu-toggle" id="menuToggle">
@@ -669,37 +640,91 @@
     </section>
 
     <!-- Training Section -->
-    <section id="training" class="training">
-        <div class="container">
-            <div class="section-title">
-                <h2>Training & Certifications</h2>
-            </div>
-            <div class="training-container">
-                <div class="training-card">
-                    <div class="training-image">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <div class="training-content">
-                        <h3>Computer Programming</h3>
-                        <p><strong>Institute:</strong> Caddzone, Gazipur</p>
-                        <p><strong>Year:</strong> <span class="year">2020</span></p>
-                        <p>Comprehensive training in various programming languages and software development practices.</p>
-                    </div>
-                </div>
-                <div class="training-card">
-                    <div class="training-image">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <div class="training-content">
-                        <h3>Cyber Security and Ethical Hacking</h3>
-                        <p><strong>Institute:</strong> Arena Web Security</p>
-                        <p><strong>Year:</strong> <span class="year">2025</span></p>
-                        <p>Advanced training in cybersecurity principles, ethical hacking techniques, and security best practices.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <section id="certificates" class="container">
+        <div class="section-title"><h2>Professional Certifications</h2></div>
+        <div class="certificates-container" id="certGrid"></div>
     </section>
+    <div class="modal" id="certModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeBtn">&times;</span>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+
+
+    <script>
+        /* Data array containing all certificate information */
+        const certificates = [
+        
+            { title: "Introduction to Ethical Hacking", provider: "SkillUp/Coursera", date: "Jan 12, 2026", link: "https://coursera.org/verify/JQHS3NQJNHH0", image: "New Folder/Introduction to Ethical Hacking Principles.png" },
+            
+           
+            { title: "CCEP Educator Professional", provider: "Red Team Leaders", date: "Nov 25, 2025", link: "https://courses.redteamleaders.com/exam-completion/bb468908564ef4d8", image: "New Folder/ccep.png"},
+           
+           { title: "Google Cybersecurity Professional (v.2)", provider: "Google/Coursera", date: "Jan 03, 2026", link: "https://www.credly.com/go/k6Zm0H0f", image: "New Folder/Google Cybersecurity Professional.png" },
+         
+         { title: "Google Cybersecurity", provider: "Google/Coursera", date: "Jan 03, 2026", link: "https://www.coursera.org/account/accomplishments/specialization/3RRPOLFW4TTT ", image: "New Folder/google_cybersecurity.png" },
+           
+           { title: "Foundations of Cybersecurity", provider: "Google/Coursera", date: "Nov 06, 2025", link: "https://www.coursera.org/account/accomplishments/verify/TMOJ9VUNMH7R", image: "New Folder/Foundations of Cybersecurity.png" },
+            
+            { title: "Play It Safe: Manage Security Risks", provider: "Google/Coursera", date: "Nov 15, 2025", link: "https://www.coursera.org/account/accomplishments/records/XYIYXOGJD4OA", image: "New Folder/Play It Safe: Manage Security Risks.png" },
+           
+           { title: "Connect and Protect: Network Security", provider: "Google/Coursera", date: "Nov 17, 2025", link: "https://www.coursera.org/account/accomplishments/records/68QQ3BDQJL1O", image: "New Folder/Connect and Protect: Networks and Network.png" },
+             
+             { title: "Tools of the Trade: Linux and SQL", provider: "Google/Coursera", date: "Nov 19, 2025", link: "https://www.coursera.org/account/accomplishments/verify/J8YK6JX4VX40", image: "New Folder/Tools of the Trade: Linux and SQL.png" },
+            
+            { title: "Assets, Threats & Vulnerabilities", provider: "Google/Coursera", date: "Nov 25, 2025", link: "https://www.coursera.org/account/accomplishments/records/ZESTVZYAGYC8", image: "New Folder/Assets, Threats, and Vulnerabilities.png" },
+              
+              { title: "Sound the Alarm: Detection & Response", provider: "Google/Coursera", date: "Dec 21, 2025", link: "https://www.coursera.org/account/accomplishments/records/EJEN77O9YASC", image: "New Folder/Sound the Alarm: Detection and Response.png" },
+              
+              { title: "Automate Tasks with Python", provider: "Google/Coursera", date: "Dec 30, 2025", link: "https://www.coursera.org/account/accomplishments/records/ZNYVFK8RMFO8", image: "New Folder/Automate Cybersecurity Tasks with Python.png" },
+           
+             
+            { title: "Put It to Work: Prepare for Cybersecurity Jobs", provider: "Google/Coursera", date: "Jan 03, 2026", link: "https://www.coursera.org/account/accomplishments/records/9HW9D3L692Q1", image: "New Folder/Put_it_to_work.png" },
+           
+            
+            { title: "Accelerate Job Search with AI", provider: "Google/Coursera", date: "Jan 03, 2026", link: "https://coursera.org/share/6bf3e7c71da7213463cbef4010827820", image: "New Folder/job_search_with_ai_.png" },
+            
+            
+             { title: "Cyber Security V1", provider: "ICT Division, Bangladesh", date: "2025", link: "https://certificate.muktopaath.gov.bd/storage/uploads/certificates/d26d0e1247d58c8a7f33ed594a05d2e0.jpg", image: "New Folder/Cyber_security_V1.png" },
+        ];
+
+        /* DOM Element references */
+        const grid = document.getElementById('certGrid');
+        const modal = document.getElementById('certModal');
+        const body = document.getElementById('modalBody');
+
+        /* Loop through the certificates array and create HTML for each card */
+        certificates.forEach(c => {
+            const card = document.createElement('div');
+            card.className = 'certificate-card';
+            card.innerHTML = `
+                <div class="certificate-thumb" onclick="openCert('${c.image}')">
+                    <img src="${c.image}" alt="${c.title}" onerror="this.src='https://via.placeholder.com/400x300?text=Certification'">
+                </div>
+                <div class="certificate-body">
+                    <h4>${c.title}</h4>
+                    <p>${c.provider} • ${c.date}</p>
+                    <div class="cert-actions">
+                        <button class="small-btn btn-view" onclick="openCert('${c.image}')">View</button>
+                        <a href="${c.link}" target="_blank" class="small-btn btn-verify">Verify</a>
+                    </div>
+                </div>`;
+            grid.appendChild(card);
+        });
+
+        /* Function to handle opening the full-screen image modal */
+        function openCert(src) {
+            body.innerHTML = `<img src="${src}" onerror="this.src='https://via.placeholder.com/800x600?text=Credential+Image+Not+Found'">`;
+            modal.classList.add('open');
+        }
+
+        /* Logic to close the modal when clicking the 'X' button or outside the image */
+        document.getElementById('closeBtn').onclick = () => modal.classList.remove('open');
+        window.onclick = (e) => { if (e.target == modal) modal.classList.remove('open'); }
+    </script>
+
 
     <!-- Contact Section -->
     <section id="contact" class="contact">
@@ -756,9 +781,10 @@
                 <a href="#"><i class="fab fa-linkedin-in"></i></a>
                 <a href="#"><i class="fab fa-github"></i></a>
             </div>
-            <p>&copy; 2023 Md. Ekramul Hossain. All Rights Reserved.</p>
+            <p>&copy; 2026 Md. Ekramul Hossain. All Rights Reserved.</p>
         </div>
     </footer>
+
 
     <script>
         // Mobile Menu Toggle
@@ -799,6 +825,8 @@
             // Reset the form
             this.reset();
         });
+        
+        
 
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
