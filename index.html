@@ -277,51 +277,43 @@
         }
 
         /* Skills Section */
-        .skills {
-            background-color: var(--white);
+             /* Generic Card Styling used for Skills layout */
+        .grid-container { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 2rem; 
         }
 
-        .skills-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+        .card { 
+            background-color: var(--white); 
+            border-radius: 10px; 
+            box-shadow: var(--shadow); 
+            padding: 2rem; 
+            transition: transform 0.3s ease; 
         }
 
-        .skill-card {
-            background-color: var(--light-bg);
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s ease;
+        /* Specific Skill List Styling from caption.html */
+        .skill-list { 
+            list-style: none; 
+            padding: 0;
         }
 
-        .skill-card:hover {
-            transform: translateY(-10px);
+        .skill-list li { 
+            padding: 10px 0; 
+            border-bottom: 1px solid #eee; 
+            display: flex; 
+            align-items: center; 
+            font-size: 1rem;
         }
 
-        .skill-card h3 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
+        .skill-list li:last-child { 
+            border-bottom: none; 
         }
 
-        .skill-card h3 i {
-            margin-right: 10px;
-            color: var(--secondary-color);
-        }
-
-        .skill-list {
-            list-style: none;
-        }
-
-        .skill-list li {
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .skill-list li:last-child {
-            border-bottom: none;
+        /* Icon colors from your screenshot */
+        .skill-list li i { 
+            margin-right: 12px; 
+            color: var(--secondary-color); /* This provides the blue color shown in your screenshot */
         }
 
         /* Training Section */
@@ -518,7 +510,7 @@
     <!-- Header -->
     <header id="header">
         <nav class="container">
-            <div class="logo">Ekramul Hossain</div>
+            <div class="logo">MD. Ekramul Hossain</div>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
@@ -537,10 +529,10 @@
     <section id="home" class="hero">
         <div class="hero-content">
             <div class="hero-image">
-                <img src="https://z-cdn-media.chatglm.cn/files/5975921e-6797-4819-91d2-1ad27a25d0af_Screenshot_2.png?auth_key=1791036530-e80ce3cb8d4c43e1aa50d773b03b9ebc-0-aa2f6fd11df1fe9d0a70e624bd223f88" alt="Md. Ekramul Hossain">
+                <img src="New Folder/IMG_20240518_224132.jpg" alt="Md. Ekramul Hossain">
             </div>
             <h1>Md. Ekramul Hossain</h1>
-            <p>Computer Science & Engineering Professional</p>
+            <p>Computer Science & Engineering & Cybersecurity Learner</p>
             <a href="#contact" class="btn">Get In Touch</a>
         </div>
     </section>
@@ -553,9 +545,7 @@
             </div>
             <div class="about-content">
                 <div class="about-text">
-                    <p>I am a dedicated Computer Science & Engineering student with a passion for technology and problem-solving. Currently pursuing my Bachelor of Science at Southeast University, I have a strong foundation in computer programming, network setup, and cybersecurity.</p>
-                    <p>My career objective is to achieve a challenging position where I can apply my knowledge and skills for the development of an organization as well as my personal growth. I thrive in environments that offer opportunities for industrial-economic development and continuous learning.</p>
-                    <p>With a Diploma in Engineering in Computer Science & Technology and additional training in programming and cybersecurity, I am well-equipped to tackle complex technical challenges and contribute effectively to any IT team.</p>
+                    <p>I am a dedicated Computer Science & Engineering student at Southeast University. I specialize in network security and automation, recently earning the Google Cybersecurity Professional Certificate. Now, I am learning Ethical Haching. I am passionate about leveraging technical expertise to solve complex security challenges.</p>
                 </div>
             </div>
         </div>
@@ -576,7 +566,7 @@
                         <h3>Bachelor of Science (BSc)</h3>
                         <p><strong>Institute:</strong> Southeast University</p>
                         <p><strong>Major:</strong> Computer Science & Engineering</p>
-                        <p><strong>Grade:</strong> 3.61 (11th semester running)</p>
+                        <p><strong>Grade:</strong> 3.56 (last semester running)</p>
                         <p><strong>Duration:</strong> <span class="year">Running</span></p>
                     </div>
                 </div>
@@ -609,32 +599,28 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="skills">
-        <div class="container">
-            <div class="section-title">
-                <h2>Skills</h2>
+   <section id="skills" class="container">
+        <div class="section-title">
+            <h2>Skills</h2>
+        </div>
+        <div class="grid-container">
+            <div class="card">
+                <h3>Technical Skills</h3>
+                <ul class="skill-list">
+                    <li><i class="fas fa-check-circle"></i> Computer Programming (Python, SQL)</li>
+                    <li><i class="fas fa-check-circle"></i> Linux & Windows Administration</li>
+                    <li><i class="fas fa-check-circle"></i> Network Setup & Wi-Fi Security</li>
+                    <li><i class="fas fa-check-circle"></i> Hardware & Software Troubleshooting</li>
+                </ul>
             </div>
-            <div class="skills-container">
-                <div class="skill-card">
-                    <h3><i class="fas fa-laptop-code"></i> Technical Skills</h3>
-                    <ul class="skill-list">
-                        <li>MS Office Applications</li>
-                        <li>Computer Programming</li>
-                        <li>Computer Hardware & Software Troubleshooting</li>
-                        <li>Network Setup & Configuration (LAN, Wi-Fi)</li>
-                        <li>Wi-Fi Security Setup and Management</li>
-                        <li>IT Technical Support for End-User</li>
-                    </ul>
-                </div>
-                <div class="skill-card">
-                    <h3><i class="fas fa-user-cog"></i> Additional Skills</h3>
-                    <ul class="skill-list">
-                        <li>Problem-Solving and Independent Work Capability</li>
-                        <li>Strong Communication and Team Collaboration Skills</li>
-                        <li>Quick Learner of New IT Technologies</li>
-                        <li>Knowledge of Cybersecurity Best Practices</li>
-                    </ul>
-                </div>
+            <div class="card">
+                <h3>Cybersecurity</h3>
+                <ul class="skill-list">
+                    <li><i class="fas fa-shield-alt"></i> Ethical Hacking Principles</li>
+                    <li><i class="fas fa-shield-alt"></i> Asset & Risk Management</li>
+                    <li><i class="fas fa-shield-alt"></i> Incident Detection & Response</li>
+                    <li><i class="fas fa-shield-alt"></i> Python for Security Automation</li>
+                </ul>
             </div>
         </div>
     </section>
@@ -773,13 +759,13 @@
     </section>
 
     <!-- Footer -->
-    <footer>
+<footer>
         <div class="container">
             <div class="social-links">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="https://www.facebook.com/mdekramul.hossainashik/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://x.com/EkramulH58" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/in/md-ekramul-hossain-226b31276/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/Ekramul-Hossain" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
             </div>
             <p>&copy; 2026 Md. Ekramul Hossain. All Rights Reserved.</p>
         </div>
