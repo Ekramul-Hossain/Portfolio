@@ -465,46 +465,49 @@
 
         
         /* Responsive Design */
-        @media screen and (max-width: 768px) {
-            .nav-links {
-                position: fixed;
-                top: 70px;
-                left: -100%;
-                width: 100%;
-                height: calc(100vh - 70px);
-                background-color: var(--white);
-                flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
-                padding-top: 2rem;
-                transition: left 0.3s ease;
-                box-shadow: var(--shadow);
-            }
+      /* Corrected Responsive Design */
+@media screen and (max-width: 768px) {
+    /* 1. Fix the Header/Hero spacing */
+    .hero {
+        padding-top: 140px; /* More space so header doesn't cover text */
+        height: auto; 
+        min-height: 100vh;
+    }
 
-            .nav-links.active {
-                left: 0;
-            }
+    /* 2. Fix the Mobile Menu (Slide from side) */
+    .nav-links {
+        display: flex; /* Ensure it's not hidden */
+        position: fixed;
+        top: 70px;
+        left: -100%; /* Hidden off-screen to the left */
+        width: 100%;
+        height: calc(100vh - 70px);
+        background-color: var(--white);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 2rem;
+        transition: left 0.3s ease;
+        box-shadow: var(--shadow);
+    }
 
-            .nav-links li {
-                margin: 1rem 0;
-            }
+    .nav-links.active {
+        left: 0; /* Slides into view when active */
+    }
 
-            .menu-toggle {
-                display: block;
-            }
+    .menu-toggle {
+        display: block; /* Show hamburger icon */
+    }
 
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.2rem;
-            }
-
-            .contact-container {
-                flex-direction: column;
-            }
-        }
+    /* 3. Adjust Grids for small screens */
+    .certificates-container {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    
+    .contact-container {
+        flex-direction: column; /* Stacks contact info and form */
+    }
+}
     </style>
 </head>
 <body>
@@ -857,6 +860,7 @@
     </script>
 </body>
 </html>
+
 
 
 
